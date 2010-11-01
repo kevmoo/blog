@@ -10,11 +10,11 @@ class PostsController < ApplicationController
   end
 
   def new_scratch
+    @file_path = Scratch.haml_path
   end
 
   def scratch
-    # make sure there is a scratch.haml file, right?
-    render :file => File.join(Rails.root, 'tmp', 'scratch', 'scratch.haml')
+    render :file => Scratch.haml_path
   end
 
 end
