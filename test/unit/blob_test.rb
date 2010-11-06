@@ -18,8 +18,7 @@ class BlobTest < ActiveSupport::TestCase
     b = Blob.new(:content => get_random_string)
     sha = Digest::SHA1.hexdigest(b.content)
     
-    assert_equal sha, b.sha
-    assert_equal sha, b._id
+    assert_equal sha, b.id
     
   end
   
