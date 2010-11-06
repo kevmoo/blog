@@ -1,4 +1,7 @@
 require 'test_helper'
+require 'digest/sha1'
+
+
 class BlobTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.
@@ -13,6 +16,11 @@ class BlobTest < ActiveSupport::TestCase
   
   test "key == _id == sha" do
     b = Blob.new(:content => get_random_string)
+    sha = Digest::SHA1.hexdigest(b.content)
+    
+    assert_equal sha, b.sha
+    assert_equal sha, b._id
+    
   end
   
   def get_random_string
