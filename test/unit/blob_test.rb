@@ -1,0 +1,21 @@
+require 'test_helper'
+class BlobTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.
+  test "cannot update" do
+    b = Blob.new(:content => get_random_string)
+    assert b.save
+    
+    b.content = 'foo'
+    
+    assert !b.save
+  end
+  
+  test "key == _id == sha" do
+    b = Blob.new(:content => get_random_string)
+  end
+  
+  def get_random_string
+    "should be random"
+  end
+end
