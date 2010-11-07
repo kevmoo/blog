@@ -3,6 +3,7 @@ class Blob
 
   field :content
   identity :type => String
+  referenced_in :version
 
   validate(:on => :update) do
     errors.add(:base, 'Cannot update an existing blob')
