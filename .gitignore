@@ -1,6 +1,8 @@
 .bundle
-db/*.sqlite3
+db/mongod.lock
+db/blog_*
 log/*.log
 tmp/**/*
 .DS_Store
 public/stylesheets/compiled
+
