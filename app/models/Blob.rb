@@ -2,6 +2,7 @@ class Blob
   include Mongoid::Document
 
   field :content
+  identity :type => String
 
   before_validation do
     # no worky if not new -> objects are created once

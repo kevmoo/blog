@@ -9,6 +9,6 @@ class ShaIdentity < Mongoid::Identity
   # Set the id for the document.
   def identify!
     @document.id = @sha
-    @document.id = generate_id if @document.id.blank?
+    @document.id = 'nil' if @document.id.blank?
   end
 end
