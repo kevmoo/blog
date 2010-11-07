@@ -1,7 +1,6 @@
 require 'test_helper'
 require 'digest/sha1'
 
-
 class BlobTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.

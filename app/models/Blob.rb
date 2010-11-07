@@ -4,9 +4,8 @@ class Blob
   field :content
   identity :type => String
 
-  before_validation do
-    # no worky if not new -> objects are created once
-    return self.new_record?
+  validate(:on => :update) do
+    errors.add(:base, 'Cannot update an existing blob')
   end
 
   # Generate an id for this +Document+.
