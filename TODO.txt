@@ -1,7 +1,0 @@
-I'll move to github issues soon.
-
-But while I have a lot of little things, I'll keep it all here
-
-* new from scratch
-* update from scratch
-* auth
