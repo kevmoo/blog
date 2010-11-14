@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  host: localhost
+  username: postgres
+  database: blog_development
+
+test:
+  adapter: postgresql
+  host: localhost
+  username: postgres
+  database: blog_test
