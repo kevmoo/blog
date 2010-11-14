@@ -41,8 +41,6 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     awesome_print (0.3.1)
-    bson (1.1.2)
-    bson_ext (1.1.2)
     builder (2.1.2)
     columnize (0.3.2)
     compass (0.10.6)
@@ -64,13 +62,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mongo (1.1.2)
-      bson (>= 1.1.1)
-    mongoid (2.0.0.beta.20)
-      activemodel (~> 3.0)
-      mongo (~> 1.1)
-      tzinfo (~> 0.3.22)
-      will_paginate (~> 3.0.pre)
+    pg (0.9.0)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -105,17 +97,15 @@ GEM
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
-    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   awesome_print
-  bson_ext (= 1.1.2)
   compass
   haml-rails
   hassle!
-  mongoid (= 2.0.0.beta.20)
+  pg
   rails (~> 3.0)
   ruby-debug19
