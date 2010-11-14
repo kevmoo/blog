@@ -12,11 +12,11 @@ class VersionTest < ActiveSupport::TestCase
     v = Version.new
     v.description = "new!"
     v.blob = Blob.new(:content => 'woot!')
-    
+
     v.save!
 
-    v2 = Version.new(:previous => v, :description => 'even newer', :blob => v.blob)
-    
+    v2 = Version.new(:description => 'even newer', :blob => v.blob)
+
     v2.save!
 
     
