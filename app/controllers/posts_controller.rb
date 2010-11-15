@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     if params[:id]
       @post = Post.find(params[:id])
     else
-      @post = Post.find_by_slug(params[:slug])
+      @post = Post.month(params[:year].to_i, params[:month].to_i).find_by_slug(params[:slug])
     end
 
     respond_to do |format|
