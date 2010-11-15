@@ -16,6 +16,10 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def to_html
+    Haml::Engine.new(content).render
+  end
+
   private
 
   def ensure_slug
