@@ -6,12 +6,11 @@ class Post < ActiveRecord::Base
 
   def get_options
     if persisted?
-      {:year => created_at.year.to_s, :month => "%02d" % created_at.month, :slug => slug}
+      {:year => created_at.year, :month => created_at.month, :slug => slug}
     else
       {:id => id}
     end
   end
-
 
   private
 
