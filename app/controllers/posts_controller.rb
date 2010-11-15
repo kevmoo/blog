@@ -13,7 +13,11 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.xml
   def show
-    @post = Post.find(params[:id])
+    if params[:id]
+      @post = Post.find(params[:id])
+    else
+      @post = Post.find_by_slug(params[:slug])
+    end
 
     respond_to do |format|
       format.html # show.html.erb

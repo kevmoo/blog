@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   validates :title, :length => {:minimum => 1, :maximum => 100}
   validates :content, :length => {:minimum => 1}
-  validates :slug, :length => {:minimum => 1}
+  validates :slug, :length => {:minimum => 1}, :unique => true
   before_validation :ensure_slug
 
   def get_options
