@@ -1,8 +1,11 @@
 class Post < ActiveRecord::Base
   validates :title, :length => {:minimum => 1, :maximum => 100}
   validates :content, :length => {:minimum => 1}
-  validates :slug, :length => {:minimum => 1}, :unique => true
+  validates :slug, :length => {:minimum => 1}, :uniqueness => true
   before_validation :ensure_slug
+
+  scope :month, lambda { |year, month| where('created_at >= ?', Time.utc(year, month)).where('created_at <= ?' , Time.utc(year, month).end_of_month) }
+  scope :year, lambda { |year| where('created_at >= ?', Time.utc(year)).where('created_at <= ?' , Time.utc(year).end_of_year) }
 
   def get_options
     if persisted?

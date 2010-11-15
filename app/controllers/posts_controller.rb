@@ -2,7 +2,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
   def index
-    @posts = Post.all
+    @posts = Post.select
+    if params[:year] && params[:month]
+      @posts = Post.month(params[:year].to_i, params[:month].to_i)
+    elsif params[:year]
+      @posts = Post.year(params[:year].to_i)
+    end
+
+    @posts = @posts.all
 
     respond_to do |format|
       format.html # index.html.erb
