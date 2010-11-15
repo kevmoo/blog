@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   validates :slug, :length => {:minimum => 1}, :uniqueness => true
   before_validation :ensure_slug
 
+  default_scope limit(10).order('created_at DESC')
   scope :month, lambda { |year, month| where('created_at >= ?', Time.utc(year, month)).where('created_at <= ?' , Time.utc(year, month).end_of_month) }
   scope :year, lambda { |year| where('created_at >= ?', Time.utc(year)).where('created_at <= ?' , Time.utc(year).end_of_year) }
 
