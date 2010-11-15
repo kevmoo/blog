@@ -12,4 +12,5 @@ group :test, :development do
   gem "rspec-rails", "~> 2.1"
   gem 'ruby-debug19'
   gem 'awesome_print'
+  gem 'syntax'
 end
