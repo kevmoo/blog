@@ -124,3 +124,6 @@ DEPENDENCIES
   rspec-rails (~> 2.1)
   ruby-debug19
   syntax
+
+METADATA
+  version: 1.0.6
