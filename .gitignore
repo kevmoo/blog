@@ -1,8 +1,8 @@
 .bundle
 db/mongod.lock
 db/blog_*
-log/*.log
-tmp/**/*
+log
+tmp
 .DS_Store
 public/stylesheets/compiled
 
