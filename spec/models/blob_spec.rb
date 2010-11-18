@@ -11,4 +11,7 @@ describe Blob do
     b.save.should be_true
     b.id.should eq(Digest::SHA1.hexdigest('foo'))
   end
+
+  it 'should not allow changing content or id'
+
 end
