@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101117025035) do
+ActiveRecord::Schema.define(:version => 20101114004249) do
 
   create_table "blobs", :id => false, :force => true do |t|
     t.text   "value",               :null => false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20101117025035) do
   add_index "posts", ["slug"], :name => "index_posts_on_slug", :unique => true
 
   create_table "versions", :force => true do |t|
-    t.integer  "blob_id",                               :null => false
+    t.string   "blob_id",                               :null => false
     t.integer  "previous_id"
     t.text     "metadata",    :default => "--- {}\n\n", :null => false
     t.datetime "created_at"
