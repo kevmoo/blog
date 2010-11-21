@@ -14,4 +14,15 @@ class Blob < ActiveRecord::Base
       self.id = Digest::SHA1.hexdigest(self.value)
     end
   end
+
+  def self.get(value)
+    raise ArgumentError.new('value cannot be nil') if !value
+    sha = Digest::SHA1.hexdigest(value)
+    b = Blob.find_by_id(sha)
+    unless b
+      b = Blob.create(:value => value)
+    end
+    b
+  end
+
 end
