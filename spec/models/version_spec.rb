@@ -6,9 +6,7 @@ describe Version do
   end
 
   it 'should allow valid' do
-    b = Blob.create(:value => "foo")
-    v = Version.new(:blob => b)
-
+    v = Version.new(:blob => Blob.create(:value => "foo"))
     v.save!
   end
 end
