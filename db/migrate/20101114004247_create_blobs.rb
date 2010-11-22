@@ -5,7 +5,7 @@ class CreateBlobs < ActiveRecord::Migration
       t.string :id, :null => false, :limit => 40
     end
 
-    add_index :blobs, :id, :unique => true
+    execute "ALTER TABLE blobs ADD PRIMARY KEY (id)"
   end
 
   def self.down

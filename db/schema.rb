@@ -17,8 +17,6 @@ ActiveRecord::Schema.define(:version => 20101114004249) do
     t.string "id",    :limit => 40, :null => false
   end
 
-  add_index "blobs", ["id"], :name => "index_blobs_on_id", :unique => true
-
   create_table "posts", :force => true do |t|
     t.string   "title",      :null => false
     t.string   "slug",       :null => false
