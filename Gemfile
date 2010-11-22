@@ -5,11 +5,15 @@ gem 'rails', '~>3.0'
 gem 'pg'
 gem 'haml-rails'
 gem 'compass'
-gem "babosa"
+gem 'babosa'
 gem 'hassle', :git => 'git://github.com/kevmoo/hassle.git', :ref => 'bd0cd41aaceb002c5'
 
+group :development do
+  gem 'nokogiri'
+end
+
 group :test, :development do
-  gem "rspec-rails", "~> 2.1"
+  gem 'rspec-rails', '~> 2.1'
   gem 'ruby-debug19'
   gem 'awesome_print'
   gem 'syntax'
