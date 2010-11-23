@@ -1,9 +1,5 @@
 require File.join(Rails.root, 'lib/import/blogger.rb')
 
-def parse(entry)
-  puts entry.inspect
-end
-
 namespace :import do
 
   namespace :blogger do
@@ -22,6 +18,17 @@ namespace :import do
 
     desc "Posts for blobs"
     task :to_posts => :environment do
+
+      offset = 0
+      begin
+        current = Blob.limit(1).offset(offset).first
+        if current
+          if Import::Blogger.is_post?(current.value)
+            puts current.value
+          end
+        end
+        offset += 1
+      end while current
 
     end
 

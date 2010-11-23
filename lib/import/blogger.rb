@@ -1,7 +1,11 @@
 module Import
   class Blogger
 
-    XMLNS = {:atom => 'http://www.w3.org/2005/Atom'}
+    XMLNS = {
+      :atom => 'http://www.w3.org/2005/Atom',
+      :kind => 'http://schemas.google.com/g/2005#kind',
+      :post => 'http://schemas.google.com/blogger/2008/kind#post'
+    }
 
     def initialize(blogger_export_xml_path)
       @doc = get_nokogiri_doc(blogger_export_xml_path)
@@ -15,6 +19,16 @@ module Import
 
     def entries
       @doc.xpath("//atom:entry", 'atom' => XMLNS[:atom])
+    end
+
+    def self.is_post?(entry)
+      xml = Nokogiri::XML(entry)
+      xml.xpath('//category').each do |category|
+        if category.attr('scheme') == XMLNS[:kind] && category.attr('term') == XMLNS[:post]
+          return true
+        end
+      end
+      return false
     end
 
     private
