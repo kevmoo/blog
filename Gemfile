@@ -8,11 +8,8 @@ gem 'compass'
 gem 'babosa'
 gem 'hassle', :git => 'git://github.com/kevmoo/hassle.git', :ref => 'bd0cd41aaceb002c5'
 
-group :development do
-  gem 'nokogiri'
-end
-
 group :test, :development do
+  gem 'nokogiri'
   gem 'rspec-rails', '~> 2.1'
   gem 'ruby-debug19'
   gem 'awesome_print'

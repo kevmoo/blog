@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module Import
   class Blogger
 
