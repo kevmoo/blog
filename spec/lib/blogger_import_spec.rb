@@ -10,8 +10,8 @@ describe Import::Blogger do
       describe "should import awesome" do
         blogger = Blogger.new(file)
 
+        count = 0
         blogger.entries.select{ |entry| Blogger.is_post?(entry.to_xml) }.each do |entry|
-          count = 0
           it "entry number #{count} should be cool" do
             puts Blogger.parse(entry)
           end
