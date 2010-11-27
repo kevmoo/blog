@@ -13,7 +13,7 @@ describe Import::Blogger do
         blogger.entries.select{ |entry| Blogger.is_post?(entry.to_xml) }.each do |entry|
           count = 0
           it "entry number #{count} should be cool" do
-            puts CGI.escapeHTML(entry.to_xml)
+            puts Blogger.parse(entry)
           end
           count += 1
         end

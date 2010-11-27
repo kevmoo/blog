@@ -21,8 +21,21 @@ module Import
       @doc.xpath("//atom:entry", 'atom' => XMLNS[:atom])
     end
 
-    def self.is_post?(entry)
-      xml = Nokogiri::XML(entry)
+    def self.parse(xml)
+      xml = self.ensure_xml(xml)
+      data = {}
+      data[:blogger_id] = xml.xpath('atom:id', {'atom' => XMLNS[:atom]})[0].text
+      # title
+      # title - format
+      # created
+      # updated
+      # format
+      # content
+      data
+    end
+
+    def self.is_post?(xml)
+      xml = self.ensure_xml(xml)
       xml.xpath('//category').each do |category|
         if category.attr('scheme') == XMLNS[:kind] && category.attr('term') == XMLNS[:post]
           return true
@@ -32,6 +45,13 @@ module Import
     end
 
     private
+
+    def self.ensure_xml(xml)
+      unless xml.respond_to?(:to_xml)
+        xml = Nokogiri::XML(xml)
+      end
+      xml
+    end
 
     def get_nokogiri_doc(filename)
       content = open_file(filename)
