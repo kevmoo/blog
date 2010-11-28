@@ -26,12 +26,10 @@ module Import
       data = {}
       data[:blogger_id] = get_blogger_id(xml)
       data[:title] = get_title(xml)
-      # title
-      # title - format
-      # created
-      # updated
-      # format
-      # content
+      data[:published] = get_date(xml, 'published')
+      data[:updated] = get_date(xml, 'updated')
+      data[:content] = get_content(xml)
+      # URL
       data
     end
 
@@ -47,6 +45,25 @@ module Import
 
     private
 
+    def self.get_date(xml, name)
+      assert xml.respond_to?(:to_xml)
+      content = xml.xpath("atom:#{name}", {'atom' => XMLNS[:atom]})
+      assert content.length == 1
+      content = content[0]
+      assert content.child.text?
+      DateTime.parse(content.child.text)
+    end
+
+    def self.get_content(xml)
+      assert xml.respond_to?(:to_xml)
+      content = xml.xpath('atom:content', {'atom' => XMLNS[:atom]})
+      assert content.length == 1
+      content = content[0]
+      assert content.attributes['type'].value == 'html'
+      assert content.child.text?
+      content.child.text
+    end
+
     def self.get_blogger_id(xml)
       assert xml.respond_to?(:to_xml)
       blogger_id = xml.xpath('atom:id', {'atom' => XMLNS[:atom]})
@@ -57,12 +74,13 @@ module Import
 
     def self.get_title(xml)
       assert xml.respond_to?(:to_xml)
-      blogger_id = xml.xpath('atom:title', {'atom' => XMLNS[:atom]})
-      assert blogger_id.length == 1
-      blogger_id = blogger_id[0]
-      if blogger_id.child
-        assert blogger_id.child.text?
-        blogger_id.child.text
+      title_element = xml.xpath('atom:title', {'atom' => XMLNS[:atom]})
+      assert title_element.length == 1
+      title_element = title_element[0]
+      assert title_element.attributes['type'].value == 'text'
+      if title_element.child
+        assert title_element.child.text?
+        title_element.child.text
       else
         ''
       end
