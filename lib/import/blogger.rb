@@ -4,7 +4,8 @@ module Import
     XMLNS = {
       :atom => 'http://www.w3.org/2005/Atom',
       :kind => 'http://schemas.google.com/g/2005#kind',
-      :post => 'http://schemas.google.com/blogger/2008/kind#post'
+      :post => 'http://schemas.google.com/blogger/2008/kind#post',
+      :app => 'http://purl.org/atom/app#'
     }
 
     def initialize(blogger_export_xml_path)
@@ -35,6 +36,11 @@ module Import
 
     def self.is_post?(xml)
       xml = ensure_xml(xml)
+
+      if xml.xpath('//app:draft', {'app' => XMLNS[:app]}).length > 0
+        return false
+      end
+
       xml.xpath('//category').each do |category|
         if category.attr('scheme') == XMLNS[:kind] && category.attr('term') == XMLNS[:post]
           return true
