@@ -96,7 +96,7 @@ module Import
     def self.assert(truth, message = nil)
       unless truth
         if message
-          raise 'message'
+          raise message
         else
           raise 'something weird happened'
         end
