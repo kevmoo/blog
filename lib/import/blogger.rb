@@ -29,7 +29,7 @@ module Import
       data[:published] = get_date(xml, 'published')
       data[:updated] = get_date(xml, 'updated')
       data[:content] = get_content(xml)
-      # URL
+      data[:links] = get_links(xml)
       data
     end
 
@@ -45,8 +45,18 @@ module Import
 
     private
 
+    def self.get_links(xml)
+      link_elements = xml.xpath("atom:link", {'atom' => XMLNS[:atom]})
+      link_elements.collect do |item|
+        hash = {}
+        item.attributes.each do |key, value|
+          hash[key] = value.value
+        end
+        hash
+      end
+    end
+
     def self.get_date(xml, name)
-      assert xml.respond_to?(:to_xml)
       content = xml.xpath("atom:#{name}", {'atom' => XMLNS[:atom]})
       assert content.length == 1
       content = content[0]
@@ -55,7 +65,6 @@ module Import
     end
 
     def self.get_content(xml)
-      assert xml.respond_to?(:to_xml)
       content = xml.xpath('atom:content', {'atom' => XMLNS[:atom]})
       assert content.length == 1
       content = content[0]
@@ -65,7 +74,6 @@ module Import
     end
 
     def self.get_blogger_id(xml)
-      assert xml.respond_to?(:to_xml)
       blogger_id = xml.xpath('atom:id', {'atom' => XMLNS[:atom]})
       assert blogger_id.length == 1
       assert blogger_id[0].child.text?
@@ -73,7 +81,6 @@ module Import
     end
 
     def self.get_title(xml)
-      assert xml.respond_to?(:to_xml)
       title_element = xml.xpath('atom:title', {'atom' => XMLNS[:atom]})
       assert title_element.length == 1
       title_element = title_element[0]
