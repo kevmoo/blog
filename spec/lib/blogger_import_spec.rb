@@ -13,7 +13,8 @@ describe Import::Blogger do
         count = 0
         blogger.entries.select{ |entry| Blogger.is_post?(entry.to_xml) }.each do |entry|
           it "entry number #{count} should be cool" do
-            puts Blogger.parse(entry)
+            data = Blogger.parse(entry)
+            data[:alt_link].should match /j832\.com/
           end
           count += 1
         end

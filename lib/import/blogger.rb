@@ -29,7 +29,7 @@ module Import
       data[:published] = get_date(xml, 'published')
       data[:updated] = get_date(xml, 'updated')
       data[:content] = get_content(xml)
-      data[:links] = get_links(xml)
+      data[:alt_link] = get_alt_link(xml)
       data
     end
 
@@ -45,6 +45,12 @@ module Import
 
     private
 
+    def self.get_alt_link(xml)
+      links = get_links(xml)
+      links.select!{ |l| l['rel'] == 'alternate'}
+      assert links.length == 1, 'should have one and only one alternate link'
+      links[0]['href']
+    end
     def self.get_links(xml)
       link_elements = xml.xpath("atom:link", {'atom' => XMLNS[:atom]})
       link_elements.collect do |item|
