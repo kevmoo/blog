@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20101114004249) do
   create_table "posts", :force => true do |t|
     t.string   "title",      :null => false
     t.string   "slug",       :null => false
-    t.text     "content",    :null => false
+    t.integer  "version_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
