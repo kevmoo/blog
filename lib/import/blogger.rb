@@ -6,7 +6,9 @@ module Import
       :kind => 'http://schemas.google.com/g/2005#kind',
       :post => 'http://schemas.google.com/blogger/2008/kind#post',
       :app => 'http://purl.org/atom/app#'
-    }
+    }.freeze
+
+    SLUG_REGEX = /\/([\w-]*)\.html/
 
     def initialize(blogger_export_xml_path)
       @doc = get_nokogiri_doc(blogger_export_xml_path)
@@ -36,6 +38,7 @@ module Import
       data[:updated] = get_date(xml, 'updated')
       data[:content] = get_content(xml)
       data[:alt_link] = get_alt_link(xml)
+      data[:slug] = get_slug(data[:alt_link])
       data
     end
 
@@ -56,12 +59,17 @@ module Import
 
     private
 
+    def self.get_slug(alt_link)
+      alt_link.match(SLUG_REGEX)[1]
+    end
+
     def self.get_alt_link(xml)
       links = get_links(xml)
       links.select!{ |l| l['rel'] == 'alternate'}
       assert links.length == 1, 'should have one and only one alternate link'
       links[0]['href']
     end
+
     def self.get_links(xml)
       link_elements = xml.xpath("atom:link", {'atom' => XMLNS[:atom]})
       link_elements.collect do |item|
