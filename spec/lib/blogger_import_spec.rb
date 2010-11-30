@@ -5,7 +5,7 @@ describe Import::Blogger do
   TEST_FILES.each do |file|
     describe "for file #{file}" do
       index = 0
-      Blogger.data_from_file(file).each do |entry|
+      Blogger.new(file).entries.each do |entry|
         describe "should import index #{index} awesome" do
 
           it "should be valid data" do

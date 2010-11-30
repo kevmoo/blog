@@ -14,20 +14,24 @@ module Import
       @doc = get_nokogiri_doc(blogger_export_xml_path)
     end
 
-    def save
-      entries.each do |entry|
-        Blob.get(entry.to_xml)
-      end
-    end
-
     def entries
-      @doc.xpath("//atom:entry", 'atom' => XMLNS[:atom])
+      entries_xml.select{ |xml| Blogger.is_post?(xml.to_xml) }.collect!{ |xml| Blogger.parse(xml) }
     end
 
-    def self.data_from_file(blogger_export_xml_path)
-      blogger = Blogger.new(blogger_export_xml_path)
-      blogger.entries.select{ |xml| is_post?(xml.to_xml) }.collect!{ |xml| parse(xml) }
+    def self.post_from_hash(data)
+      blob = Blob.get(data[:content])
+      version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
+      puts version.id
+      post = Post.new(:version => version, :slug => data[:slug])
+      post.title = data[:title].blank? ? data[:slug] : data[:title]
+      post.created_at = data[:published]
+      post.updated_at = data[:updated]
+      post.save!
+
+      post
     end
+
+    private
 
     def self.parse(xml)
       xml = ensure_xml(xml)
@@ -57,20 +61,9 @@ module Import
       return false
     end
 
-    def self.post_from_hash(data)
-      blob = Blob.get(data[:content])
-      version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
-      puts version.id
-      post = Post.new(:version => version, :slug => data[:slug])
-      post.title = data[:title].blank? ? data[:slug] : data[:title]
-      post.created_at = data[:published]
-      post.updated_at = data[:updated]
-      post.save!
-
-      post
+    def entries_xml
+      @doc.xpath("//atom:entry", 'atom' => XMLNS[:atom])
     end
-
-    private
 
     def self.get_slug(alt_link)
       alt_link.match(SLUG_REGEX)[1]
