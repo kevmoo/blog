@@ -4,14 +4,19 @@ include Import
 describe Import::Blogger do
   TEST_FILES.each do |file|
     describe "for file #{file}" do
+      index = 0
+      Blogger.data_from_file(file).each do |entry|
+        describe "should import index #{index} awesome" do
 
-      describe "should import awesome" do
-        count = 0
-        Blogger.data_from_file(file).each do |entry|
-          it "entry number #{count} should be cool" do
+          it "should be valid data" do
             entry[:alt_link].should match /j832\.com/
           end
-          count += 1
+
+          it "'#{entry[:title]}' should import into a post nicely" do
+            p = Post.from_blogger_data(entry)
+          end
+
+          index += 1
         end
       end
     end
