@@ -22,6 +22,11 @@ module Import
       @doc.xpath("//atom:entry", 'atom' => XMLNS[:atom])
     end
 
+    def self.data_from_file(blogger_export_xml_path)
+      blogger = Blogger.new(blogger_export_xml_path)
+      blogger.entries.select{ |xml| is_post?(xml.to_xml) }.collect!{ |xml| parse(xml) }
+    end
+
     def self.parse(xml)
       xml = ensure_xml(xml)
       data = {}
