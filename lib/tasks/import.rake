@@ -4,32 +4,22 @@ namespace :import do
 
   namespace :blogger do
 
-    desc "Import posts from a blogger blog xml export"
-    task :import => :environment do
-
-      filename = ENV['IMPORT_FILE']
-      unless filename
-        filename = '/Users/kevin/source/github/myblog/content/personal_blog-11-21-2010.xml'
+    desc "Import all posts from spec data"
+    task :import_all => :environment do
+      files = Dir.glob(File.expand_path('../../../spec/data/blogger/*', __FILE__))
+      files.each do |filename|
+        puts "importing #{filename}"
+        Import::Blogger.new(filename).entries.each do |entry|
+          Import::Blogger.post_from_hash(entry)
+        end
       end
-
-      Import::Blogger.new(filename).save
-
     end
 
-    desc "Posts for blobs"
-    task :to_posts => :environment do
-
-      offset = 0
-      begin
-        current = Blob.limit(1).offset(offset).first
-        if current
-          if Import::Blogger.is_post?(current.value)
-            puts current.value
-          end
-        end
-        offset += 1
-      end while current
-
+    desc "Import posts from a blogger blog xml export"
+    task :import, [:file_name] => :environment do |t, args|
+      filename = args[:file_name]
+      raise "required param #{:file_name} not defined" unless filename
+      Import::Blogger.new(filename)
     end
 
   end
