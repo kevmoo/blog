@@ -1,8 +1,6 @@
 require 'spec_helper'
 include Import
 
-TEST_FILES = Dir.glob(File.expand_path('../../data/blogger/*', __FILE__))
-
 describe Import::Blogger do
   TEST_FILES.each do |file|
     describe "for file #{file}" do
