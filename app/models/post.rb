@@ -21,19 +21,6 @@ class Post < ActiveRecord::Base
     Haml::Engine.new(content).render
   end
 
-  def self.from_blogger_data(data)
-    blob = Blob.get(data[:content])
-    version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
-    puts version.id
-    post = Post.new(:version => version, :slug => data[:slug])
-    post.title = data[:title].blank? ? data[:slug] : data[:title]
-    post.created_at = data[:published]
-    post.updated_at = data[:updated]
-    post.save!
-
-    post
-  end
-
   private
 
   def ensure_slug

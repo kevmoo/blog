@@ -13,7 +13,7 @@ describe Import::Blogger do
           end
 
           it "'#{entry[:title]}' should import into a post nicely" do
-            p = Post.from_blogger_data(entry)
+            p = Blogger.post_from_hash(entry)
           end
 
           index += 1
