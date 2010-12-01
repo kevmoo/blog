@@ -5,7 +5,7 @@ class Blob < ActiveRecord::Base
 
   validate do |instance|
     if instance.value
-      errors.add_to_base("id is not the sha of the value") unless instance.id == Digest::SHA1.hexdigest(instance.value)
+      instance.errors[:id] << ("id is not the sha of the value") unless instance.id == Digest::SHA1.hexdigest(instance.value)
     end
   end
 
