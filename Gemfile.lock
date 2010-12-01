@@ -54,6 +54,7 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    hpricot (0.8.3)
     i18n (0.5.0)
     linecache19 (0.5.11)
       ruby_core_source (>= 0.1.4)
@@ -123,6 +124,7 @@ DEPENDENCIES
   compass
   haml-rails
   hassle!
+  hpricot
   nokogiri
   pg
   rails (~> 3.0)

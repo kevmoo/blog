@@ -9,6 +9,7 @@ gem 'babosa'
 gem 'hassle', :git => 'git://github.com/kevmoo/hassle.git', :ref => 'bd0cd41aaceb002c5'
 
 group :test, :development do
+  gem 'hpricot'
   gem 'nokogiri'
   gem 'rspec-rails'
   gem 'ruby-debug19'
