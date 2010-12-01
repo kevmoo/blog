@@ -38,7 +38,7 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     archive-tar-minitar (0.5.2)
-    arel (2.0.5)
+    arel (2.0.6)
     awesome_print (0.3.1)
     babosa (0.2.0)
     builder (2.1.2)
