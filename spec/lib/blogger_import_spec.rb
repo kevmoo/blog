@@ -14,6 +14,7 @@ describe Import::Blogger do
 
           it "'#{entry[:title]}' should import into a post nicely" do
             p = Blogger.post_from_hash(entry)
+            p.save!
           end
 
           index += 1

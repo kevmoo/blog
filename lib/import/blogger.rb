@@ -25,8 +25,6 @@ module Import
       post.title = data[:title].blank? ? data[:slug] : data[:title]
       post.created_at = data[:published]
       post.updated_at = data[:updated]
-      post.save!
-
       post
     end
 
