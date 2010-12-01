@@ -21,7 +21,6 @@ module Import
     def self.post_from_hash(data)
       blob = Blob.get(data[:content])
       version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
-      puts version.id
       post = Post.new(:version => version, :slug => data[:slug])
       post.title = data[:title].blank? ? data[:slug] : data[:title]
       post.created_at = data[:published]
