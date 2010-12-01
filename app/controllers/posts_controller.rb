@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
   def index
-    @posts = Post.scoped
+    @posts = Post.active
     if params[:year] && params[:month]
       @posts = @posts.month(params[:year].to_i, params[:month].to_i)
     elsif params[:year]

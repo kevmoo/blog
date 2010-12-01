@@ -5,7 +5,8 @@ class Post < ActiveRecord::Base
   before_validation :ensure_slug
   belongs_to :version
 
-  default_scope includes([:version => :blob]).limit(10).order('created_at DESC')
+  default_scope includes([:version => :blob])
+  scope :active, limit(10).order('created_at DESC')
   scope :month, lambda { |year, month| where('created_at >= ?', Time.utc(year, month)).where('created_at <= ?' , Time.utc(year, month).end_of_month) }
   scope :year, lambda { |year| where('created_at >= ?', Time.utc(year)).where('created_at <= ?' , Time.utc(year).end_of_year) }
 
