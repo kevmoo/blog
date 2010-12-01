@@ -27,6 +27,10 @@ describe Blob do
     b2.value.should eq(b.value)
   end
 
-  it 'should not allow changing content or id'
+  it 'should not allow changing content or id' do
+    b = Blob.get("dude")
+    b.value = "sweet"
+    b.save.should be_false
+  end
 
 end
