@@ -18,13 +18,19 @@ module Import
       entries_xml.select{ |xml| Blogger.is_post?(xml.to_xml) }.collect!{ |xml| Blogger.parse(xml) }
     end
 
-    def self.post_from_hash(data)
+    def self.post_from_hash(data, existing_urls = [], existing_slugs = [])
+      return if existing_urls.include?(data[:alt_link])
+
       blob = Blob.get(data[:content])
       version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
-      post = Post.new(:version => version, :slug => data[:slug])
+      post = Post.new(:version => version)
+      unless existing_slugs.include?(data[:slug])
+        post.slug = data[:slug]
+      end
       post.title = data[:title].blank? ? nil : data[:title]
       post.created_at = data[:published]
       post.updated_at = data[:updated]
+      post.save!
       post
     end
 
