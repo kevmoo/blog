@@ -5,8 +5,8 @@ describe Post do
     it 'fails validation when empty' do
       post = Post.new
       post.should have(1).error_on(:version)
-      post.should have(1).error_on(:title)
-      post.should have(1).error_on(:slug)
+      post.should have(0).error_on(:title)
+      post.should have(0).error_on(:slug)
 
       post = Post.new(:title => '', :slug => '')
       post.should have(1).error_on(:version)
@@ -14,7 +14,7 @@ describe Post do
       post.should have(1).error_on(:slug)
     end
 
-    it 'fails whe trying to save an empty post' do
+    it 'fails when trying to save an empty post' do
       Post.new.save.should be_false
     end
 

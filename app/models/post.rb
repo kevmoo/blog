@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
-  validates :title, :length => {:minimum => 1, :maximum => 100}
-  validates :slug, :length => {:minimum => 1}, :uniqueness => true
+  validates :title, :length => {:minimum => 1, :maximum => 100}, :allow_nil => true
+  validates :slug, :length => {:minimum => 1, :maximum => 100}, :uniqueness => true, :allow_nil => true
   validates :version, :presence => true
   before_validation :ensure_slug
   belongs_to :version

@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20101114004249) do
   end
 
   create_table "posts", :force => true do |t|
-    t.string   "title",      :null => false
-    t.string   "slug",       :null => false
+    t.string   "title"
+    t.string   "slug"
     t.integer  "version_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

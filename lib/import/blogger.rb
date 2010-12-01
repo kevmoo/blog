@@ -22,7 +22,7 @@ module Import
       blob = Blob.get(data[:content])
       version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
       post = Post.new(:version => version, :slug => data[:slug])
-      post.title = data[:title].blank? ? data[:slug] : data[:title]
+      post.title = data[:title].blank? ? nil : data[:title]
       post.created_at = data[:published]
       post.updated_at = data[:updated]
       post
