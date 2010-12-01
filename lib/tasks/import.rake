@@ -10,7 +10,15 @@ namespace :import do
       files.each do |filename|
         puts "importing #{filename}"
         Import::Blogger.new(filename).entries.each do |entry|
-          Import::Blogger.post_from_hash(entry)
+          p = Import::Blogger.post_from_hash(entry)
+          if !p.save
+            puts "Cannot import '#{p.title}'"
+            p.errors.each do |attrib, errors|
+              puts '  ' + "for attriub #{attrib} with value"
+              puts '  ' + p[attrib]
+              puts '  ' + errors
+            end
+          end
         end
       end
     end
