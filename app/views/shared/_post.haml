@@ -1,4 +1,5 @@
-.blog_post
-  %h1.title= link_to post.title, pretty_path(post)
-  .post_date #{time_ago_in_words(post.created_at)} ago
-  .post_content= post.to_html
+%article
+  %header
+    %time{:pubdate => true, :datetime => post.created_at} #{post.created_at}
+    %h1= link_to post.title, pretty_path(post)
+  = post.to_html
