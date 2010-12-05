@@ -7,6 +7,7 @@ gem 'haml-rails'
 gem 'compass'
 gem 'babosa'
 gem 'hassle', :git => 'git://github.com/kevmoo/hassle.git', :ref => 'bd0cd41aaceb002c5'
+gem 'ratom'
 
 group :test, :development do
   gem 'hpricot'
