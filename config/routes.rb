@@ -4,6 +4,7 @@ Blog::Application.routes.draw do
 
   match "/:year/:month/:slug" => "posts#show", :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
   match "/:year(/:month)" => "posts#index", :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
+  match 'atom' => 'posts#atom'
 
   root :to => 'posts#index'
 end
