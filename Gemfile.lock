@@ -7,6 +7,13 @@ GIT
       haml
       rack
 
+GIT
+  remote: git://github.com/nex3/haml.git
+  revision: f42f60ca6ef0ca56b6e67222bd30af1cd82aced7
+  ref: f42f60ca6ef0ca56b6e67222bd30af1cd82aced7
+  specs:
+    haml (3.0.24)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -48,7 +55,6 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    haml (3.0.24)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
@@ -125,6 +131,7 @@ DEPENDENCIES
   awesome_print
   babosa
   compass
+  haml!
   haml-rails
   hassle!
   hpricot
