@@ -1,7 +1,7 @@
 require 'omniauth/core'
 require 'omniauth/oauth'
 
-%w(TWITTER_CONSUMER_KEY TWITTER_CONSUMER_SECRET TWITTER_USER).each do |key|
+%w(TWITTER_CONSUMER_KEY TWITTER_CONSUMER_SECRET TWITTER_UID).each do |key|
   throw "a required environment var is not set: #{key}" unless ENV.key?(key)
 end
 
