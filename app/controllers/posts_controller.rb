@@ -56,7 +56,6 @@ class PostsController < ApplicationController
   end
 
   def atom
-    response.headers['Cache-Control'] = 'public'
     feed = Atom::Feed.new do |f|
       #f.title = "Example Feed"
       #f.links << Atom::Link.new(:href => "http://example.org/")
