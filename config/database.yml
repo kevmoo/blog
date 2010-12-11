@@ -3,9 +3,11 @@ development:
   host: localhost
   username: postgres
   database: blog_development
+  min_messages: WARNING
 
 test:
   adapter: postgresql
   host: localhost
   username: postgres
   database: blog_test
+  min_messages: WARNING
