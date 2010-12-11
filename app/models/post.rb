@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   validates :title, :length => {:minimum => 1, :maximum => 100}, :allow_nil => true
   validates :slug, :length => {:minimum => 1, :maximum => 100}, :uniqueness => true, :allow_nil => true
   validates :version, :presence => true
-  before_validation :ensure_slug
+  before_validation :ensure_slug, :ensure_version
   belongs_to :version
 
   default_scope includes([:version => :blob])
@@ -19,10 +19,36 @@ class Post < ActiveRecord::Base
   end
 
   def to_html
-    version.blob.value.html_safe
+    content.html_safe
+  end
+
+  def content
+    unless @content
+      if version
+        # there must be a blob
+        @content = version.blob.value
+      end
+    end
+    @content
+  end
+
+  def content= value
+    @content = value
   end
 
   private
+
+  def ensure_version
+    if @content
+      if version
+        if @content != version.blob.value
+          self.version = Version.new(:blob => Blob.get(@content), :previous => version)
+        end
+      else
+        self.version = Version.new(:blob => Blob.get(@content))
+      end
+    end
+  end
 
   def ensure_slug
     unless self.slug

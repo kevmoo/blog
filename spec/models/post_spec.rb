@@ -27,5 +27,14 @@ describe Post do
       post.save.should be_true
       post.slug.should_not be_nil
     end
+
+    it "should allow direct creation of content" do
+      post = Post.new(:title => 'foo')
+      post.content = 'foo'
+      post.save!
+
+      post.version.previous.should be_nil
+      post.version.blob.value.should eq('foo')
+    end
   end
 end
