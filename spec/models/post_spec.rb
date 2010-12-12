@@ -29,12 +29,26 @@ describe Post do
     end
 
     it "should allow direct creation of content" do
+      content = "foo"
+
       post = Post.new(:title => 'foo')
-      post.content = 'foo'
+      post.content = content
       post.save!
 
+      post.content.should eq(content)
+      post.version.should_not be_nil
+      last_version = post.version
       post.version.previous.should be_nil
-      post.version.blob.value.should eq('foo')
+      post.version.blob.value.should eq(content)
+
+      content2 = "bar"
+      post.content = content2
+      post.save!
+
+      post.content.should eq(content2)
+      post.version.previous.should_not be_nil
+      post.version.previous.should eq(last_version)
+      post.version.blob.value.should eq(content2)
     end
   end
 end
