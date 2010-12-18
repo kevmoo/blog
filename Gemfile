@@ -8,7 +8,7 @@ gem 'compass'
 gem 'babosa'
 gem 'hassle', :git => 'git://github.com/kevmoo/hassle.git', :ref => 'bd0cd41aaceb002c5'
 gem 'ratom'
-gem 'haml', :git => 'git://github.com/nex3/haml.git', :ref => 'f42f60ca6ef0ca56b6e67222bd30af1cd82aced7'
+gem 'haml', '>=3.0.25'
 gem 'oa-oauth'
 
 group :test, :development do
