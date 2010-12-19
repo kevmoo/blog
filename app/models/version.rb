@@ -1,3 +1,5 @@
+require 'haml/html'
+
 class Version < ActiveRecord::Base
   serialize :metadata, Hash
   belongs_to :blob, :readonly => true
@@ -5,6 +7,15 @@ class Version < ActiveRecord::Base
   attr_readonly :blob_id, :previous_id
   validates :blob_id, :presence => true
   validate :good_changes
+
+  def self.convert_to_haml(version)
+    unless version.format == 'html'
+      raise 'foo'
+    end
+    haml = Haml::HTML.new(version.blob.value).render
+    blob = Blob.get(haml)
+    Version.new(:blob => blob, :format => 'haml')
+  end
 
   private
 

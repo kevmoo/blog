@@ -17,6 +17,18 @@ describe Import::Blogger do
             p.save!
           end
 
+          it "shoud covert to haml fine" do
+            p = Blogger.post_from_hash(entry)
+            p.save!
+
+            puts CGI::escapeHTML(p.to_html)
+
+            version = p.version
+            version.format.should eq('html')
+            new_version = Version.convert_to_haml(version)
+            new_version.format.should eq('haml')
+          end
+
           index += 1
         end
       end
