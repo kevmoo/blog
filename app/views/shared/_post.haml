@@ -3,3 +3,6 @@
     %time{:pubdate => true, :datetime => post.created_at} #{post.created_at}
     %h1= link_to post.title, pretty_path(post)
   = post.to_html
+  - if user_data
+    %footer.admin_footer
+      =link_to "Edit", edit_post_path(post)
