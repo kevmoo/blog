@@ -4,6 +4,7 @@ class CreateVersions < ActiveRecord::Migration
       t.string :blob_id, :null => false
       t.integer :previous_id
       t.text :metadata, :null => false, :default => "--- {}\n\n"
+      t.string :format, :null => false
 
       t.timestamps
     end

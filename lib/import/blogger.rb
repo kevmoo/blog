@@ -22,7 +22,7 @@ module Import
       return if existing_urls.include?(data[:alt_link])
 
       blob = Blob.get(data[:content])
-      version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content})
+      version = Version.create(:blob => blob, :metadata => data.reject{ |key, value| key == :content}, :format => 'html')
       post = Post.new(:version => version)
       unless existing_slugs.include?(data[:slug])
         post.slug = data[:slug]

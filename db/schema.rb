@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20101114004249) do
     t.string   "blob_id",                               :null => false
     t.integer  "previous_id"
     t.text     "metadata",    :default => "--- {}\n\n", :null => false
+    t.string   "format",                                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
