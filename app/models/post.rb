@@ -22,6 +22,10 @@ class Post < ActiveRecord::Base
     content.html_safe
   end
 
+  def convert_to_haml
+    self.version = Version.convert_to_haml(self.version)
+  end
+
   def content
     unless @content
       if version

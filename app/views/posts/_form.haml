@@ -9,8 +9,10 @@
     = f.label :title
     = f.text_field :title
   -if @post.version.format == 'html'
+    :javascript
+      var convert_path = '#{convert_to_haml_post_path(@post)}';
     #convert_to_haml
-      %button{:disabled => true} Conver to haml
+      %button{:disabled => true} Convert to haml
   .field
     = f.text_area :content, :cols => nil
   .actions

@@ -28,6 +28,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def convert_to_haml
+    @post = Post.find(params[:id])
+    @post.convert_to_haml
+    @post.save!
+    render :json => true.to_json
+  end
+
   def create
     @post = Post.new(params[:post])
 
