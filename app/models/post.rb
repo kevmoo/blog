@@ -19,7 +19,14 @@ class Post < ActiveRecord::Base
   end
 
   def to_html
-    content.html_safe
+    case format
+    when 'html'
+      content.html_safe
+    when 'haml'
+      Haml::Engine.new(content).to_html.html_safe
+    else
+      throw 'bad format'
+    end
   end
 
   def convert_to_haml
@@ -31,13 +38,29 @@ class Post < ActiveRecord::Base
       if version
         # there must be a blob
         @content = version.blob.value
+        @format = version.format
       end
     end
     @content
   end
 
+  def format
+    unless @format
+      if version
+        # there must be a blob
+        @content = version.blob.value
+        @format = version.format
+      end
+    end
+    @format
+  end
+
   def content= value
     @content = value
+  end
+
+  def format= value
+    @format = value
   end
 
   private
@@ -46,10 +69,10 @@ class Post < ActiveRecord::Base
     if @content
       if version
         if @content != version.blob.value
-          self.version = Version.new(:blob => Blob.get(@content), :previous => version)
+          self.version = Version.new(:blob => Blob.get(@content), :previous => version, :format => format)
         end
       else
-        self.version = Version.new(:blob => Blob.get(@content))
+        self.version = Version.new(:blob => Blob.get(@content), :format => format)
       end
     end
   end
