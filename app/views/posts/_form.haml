@@ -5,10 +5,12 @@
       %ul
         - @post.errors.full_messages.each do |msg|
           %li= msg
-
   .field
     = f.label :title
     = f.text_field :title
+  -if @post.version.format == 'html'
+    #convert_to_haml
+      %button{:disabled => true} Conver to haml
   .field
     = f.text_area :content, :cols => nil
   .actions
