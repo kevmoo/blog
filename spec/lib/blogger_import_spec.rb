@@ -27,6 +27,7 @@ describe Import::Blogger do
             version.format.should eq('html')
             new_version = Version.convert_to_haml(version)
             new_version.format.should eq('haml')
+            new_version.previous.should eq(version)
           end
 
           index += 1

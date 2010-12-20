@@ -10,11 +10,11 @@ class Version < ActiveRecord::Base
 
   def self.convert_to_haml(version)
     unless version.format == 'html'
-      raise 'foo'
+      raise 'can only convert to haml if the current format is html'
     end
     haml = Haml::HTML.new(version.blob.value).render
     blob = Blob.get(haml)
-    Version.new(:blob => blob, :format => 'haml')
+    Version.new(:blob => blob, :format => 'haml', :previous => version)
   end
 
   private
