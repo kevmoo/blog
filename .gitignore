@@ -6,3 +6,4 @@ tmp
 .DS_Store
 public/stylesheets/compiled
 config/initializers/dev_only.rb
+db/*.sqlite3
