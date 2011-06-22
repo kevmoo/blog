@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(:version => 20101114004249) do
     t.string "id",    :limit => 40, :null => false
   end
 
+  add_index "blobs", ["id"], :name => "index_blobs_on_id", :unique => true
+
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.string   "slug"
@@ -28,10 +30,10 @@ ActiveRecord::Schema.define(:version => 20101114004249) do
   add_index "posts", ["slug"], :name => "index_posts_on_slug", :unique => true
 
   create_table "versions", :force => true do |t|
-    t.string   "blob_id",                               :null => false
+    t.string   "blob_id",                                 :null => false
     t.integer  "previous_id"
-    t.text     "metadata",    :default => "--- {}\n\n", :null => false
-    t.string   "format",                                :null => false
+    t.text     "metadata",    :default => "'--- {}\n\n'", :null => false
+    t.string   "format",                                  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
